@@ -7,9 +7,9 @@ import operator
 import logging
 import asyncio
 
-from kios_bt.bt_stewardship import BehaviorTreeStewardship
+from kios_bt_planning.kios_bt.bt_stewardship import BehaviorTreeStewardship
 from kios_scene.scene_factory import SceneFactory
-from kios_bt.bt_factory import BehaviorTreeFactory
+from kios_bt_planning.kios_bt.bt_factory import BehaviorTreeFactory
 from kios_robot.robot_interface import RobotInterface
 from kios_world.world_interface import WorldInterface
 

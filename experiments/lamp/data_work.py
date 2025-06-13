@@ -1,7 +1,7 @@
 import os
 import json
 from kios_utils.pybt_test import generate_bt_stewardship, render_dot_tree
-from kios_bt.bt_factory import BehaviorTreeFactory
+from kios_bt_planning.kios_bt.bt_factory import BehaviorTreeFactory
 import datetime
 
 

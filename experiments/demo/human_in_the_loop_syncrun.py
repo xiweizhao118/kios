@@ -10,9 +10,19 @@ os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 os.environ["LANGCHAIN_PROJECT"] = "human_in_the_loop_generation"
 
-from kios_bt.bt_stewardship import BehaviorTreeStewardship
+import sys
+import os
+
+# 获取当前文件的绝对路径，并定位父目录
+current_dir = os.path.dirname(os.path.abspath(__file__))  # 当前脚本所在目录
+parent_dir = os.path.dirname(os.path.dirname(current_dir))                 # 父级目录
+
+# 将父目录添加到 sys.path 开头（优先搜索）
+sys.path.insert(0, parent_dir) 
+
+from kios_bt_planning.kios_bt.bt_stewardship import BehaviorTreeStewardship
 # from kios_scene.scene_factory import SceneFactory # ! scene ceased
-from kios_bt.bt_factory import BehaviorTreeFactory
+from kios_bt_planning.kios_bt.bt_factory import BehaviorTreeFactory
 from kios_robot.robot_interface import RobotInterface
 from kios_world.world_interface import WorldInterface
 
@@ -68,13 +78,13 @@ def render_bt(bt_json: json):
 
 ####################### dirs
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# scene_path = os.path.join(current_dir, "scene.json") # ! scene ceased
+scene_path = os.path.join(current_dir, "scene.json") # ! scene ceased
 # bt_json_file_path = os.path.join(current_dir, "behavior_tree.json")
 world_state_path = os.path.join(current_dir, "world_state.json")
 
 ####################### scene # ! scene ceased
-# with open(scene_path, "r") as file:
-    # scene_json_object = json.load(file)
+with open(scene_path, "r") as file:
+    scene_json_object = json.load(file)
 
 # scene = SceneFactory().create_scene_from_json(scene_json_object) # ! scene ceased
 
@@ -218,7 +228,7 @@ def behavior_tree_execute_step(state: PlanExecuteState):
     """
     lg_logger.info(f"-----behavior_tree_execute_step-----")
     # * simulation shortcut. Uncomment the following line to use simulation instead of execution
-    return behavior_tree_simulation_step(state)
+    # return behavior_tree_simulation_step(state)
     this_step = state["plan"][0]
     behavior_tree_skeleton = state["last_behavior_tree"]
     latest_world_state = state["world_state"][-1]
